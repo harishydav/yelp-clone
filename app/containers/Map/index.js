@@ -1,6 +1,6 @@
 /**
  *
- * HomePage
+ * Map
  *
  */
 
@@ -13,38 +13,28 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectHomePage from './selectors';
+import makeSelectMap from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import MapSearchBox from '../../components/MapSearchBox';
+export function Map() {
+  useInjectReducer({ key: 'map', reducer });
+  useInjectSaga({ key: 'map', saga });
 
-import { yelpSearchData } from './actions';
-
-const { useEffect } = React;
-
-export function HomePage(props) {
-  useInjectReducer({ key: 'homePage', reducer });
-  useInjectSaga({ key: 'homePage', saga });
-  useEffect(() => props.dispatch(yelpSearchData()), []);
-  const { homePage } = props;
-  console.log('homePage: ', homePage, Object.keys(props));
   return (
     <div>
-      {/* <SearchBar style={{ position: 'fixed', top: '30px', right: 0 }} /> */}
-      {/* <Map height="100em" /> */}
-      <MapSearchBox />
+      <FormattedMessage {...messages.header} />
     </div>
   );
 }
 
-HomePage.propTypes = {
+Map.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  homePage: makeSelectHomePage(),
+  map: makeSelectMap(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -58,4 +48,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(HomePage);
+export default compose(withConnect)(Map);
