@@ -6,18 +6,20 @@
 import produce from 'immer';
 import { DEFAULT_ACTION, YELP_SEARCH_DATA } from './constants';
 
-export const initialState = {};
+export const initialState = {
+  businesses: {},
+};
 
 /* eslint-disable default-case, no-param-reassign */
 const homePageReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, draft => {
     switch (action.type) {
       case DEFAULT_ACTION:
-        break;
+        return state;
       case `${YELP_SEARCH_DATA}_SUCCESS`: {
-        console.log('action: ', action);
-        console.log('state: ', state);
-        return state.set('businesses', action.data);
+        draft.businesses = action.data;
+        console.log('action.data: ', action.data);
+        break;
       }
     }
   });

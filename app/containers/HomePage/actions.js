@@ -12,8 +12,9 @@ export function defaultAction() {
   };
 }
 
-export function yelpSearchData() {
+export function yelpSearchData(data) {
   return {
     type: YELP_SEARCH_DATA,
+    data,
   };
 }

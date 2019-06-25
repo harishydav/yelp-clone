@@ -18,13 +18,15 @@ const {
 const {
   SearchBox,
 } = require('react-google-maps/lib/components/places/SearchBox');
+const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
+import Icon from '@material-ui/core/Icon';
 
 const MapWithASearchBox = compose(
   withProps({
     googleMapURL:
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQOhuvUriLPgDzVblnSSH7BUj-s2EMSw&v=3.exp&libraries=geometry,drawing,places',
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `100em` }} />,
+    loadingElement: <div style={{ height: `100%`, width: window.innerWidth }} />,
+    containerElement: <div style={{ height: window.innerHeight, width: window.innerWidth }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   lifecycle({
@@ -87,12 +89,11 @@ const MapWithASearchBox = compose(
   withScriptjs,
   withGoogleMap,
 )(props => {
-  console.log('props: ', props.yolo, JSON.stringify(props));
 
   return (
     <GoogleMap
       ref={props.onMapMounted}
-      defaultZoom={15}
+      defaultZoom={14}
       center={props.center}
       onBoundsChanged={props.onBoundsChanged}
     >
@@ -102,6 +103,7 @@ const MapWithASearchBox = compose(
         controlPosition={google.maps.ControlPosition.TOP_RIGHT}
         onPlacesChanged={props.onPlacesChanged}
       >
+        {/* <div>asdafd</div> */}
         <input
           type="text"
           placeholder="Enter your Location"
@@ -121,21 +123,35 @@ const MapWithASearchBox = compose(
           }}
         />
       </SearchBox>
-      {props.markers.map((marker, index) => (
-        <Marker key={index} position={marker.position} />
-      ))}
+
+      {props.restaurantMarkers && props.restaurantMarkers.length > 0
+        ? props.restaurantMarkers.map((marker, index) => (
+          <MarkerWithLabel key={index} position={{lat: marker.lat, lng: marker.lng}}
+          labelAnchor={new google.maps.Point(30, 0)}
+          labelStyle={{ background: 'white' ,fontSize: "12px", fontWeight: "bold"}}
+          onClick={() => window.open(marker.url).focus()}
+              >
+      <div  style={{width: '80px'}} >{marker.name}</div>
+
+
+              </MarkerWithLabel>
+        ))
+        : props.markers.map((marker, index) => (
+          <Marker key={index} position={marker.position} />
+        ))}
+
     </GoogleMap>
   );
 });
 
-function MapSearchBox() {
+function MapSearchBox(props) {
+  console.log('props restaurents: ', props.restaurants);
+
   return (
     <div>
       <MapWithASearchBox
-        yolo="yole"
-        onSearch={data =>
-          console.log('We got the data out of search', data.lat(), data.lng())
-        }
+        onSearch={data => props.coords({ lat: data.lat(), lng: data.lng() })}
+        restaurantMarkers={props.restaurants}
       />
     </div>
   );

@@ -13,11 +13,9 @@ import { YELP_SEARCH_DATA } from './constants';
 
 export function* yelpSearchData(action) {
   try {
-    console.log('Ran the saga');
-
     const query = {
-      latitude: 37.786882,
-      longitude: -122.399972,
+      latitude: action.data.lat || 0,
+      longitude: action.data.lng || 0,
     };
     const data = yield request
       .get(
@@ -29,13 +27,11 @@ export function* yelpSearchData(action) {
         'Bearer wfjGJjybjdhG0J0LVynQTGytYSx3wWFq86tLagik1Q4VuQNV_RsSMldrz3tdjk_0oC30nRp1ba3PsvsXg1s5c7fx3Wcz9_ZgUcczJpRBcbXd2qLv2_TUH6s64KKbXHYx',
       )
       .set('Access-Control-Allow-Origin', '*')
-      .set('Origin', '')
-      .set('Referer', '')
       .then(response => {
         if (!response.ok) {
           throw new Error('Something goes wrong with API');
         }
-        console.log('response.body: ', response.body);
+
         return response.body;
       });
     yield put({ type: `${YELP_SEARCH_DATA}_SUCCESS`, data });
