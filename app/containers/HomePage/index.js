@@ -4,7 +4,7 @@
  *
  */
 
-import React,  { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -25,6 +25,7 @@ import MapSearchBox from '../../components/MapSearchBox';
 import RestaurantCard from '../../components/RestaurantCard';
 
 import UseMyLocation from '../../components/UseMyLocation';
+import SearchBox from '../../components/SearchBox';
 
 import { yelpSearchData } from './actions';
 
@@ -48,7 +49,7 @@ export function HomePage(props) {
   useInjectReducer({ key: 'homePage', reducer });
   useInjectSaga({ key: 'homePage', saga });
 
-  const [mapVisibility, changeVisibility] = useState({})
+  const [mapVisibility, changeVisibility] = useState(false);
   useEffect(() => () => props.dispatch(yelpSearchData()), []);
   const {
     homePage: { businesses },
@@ -57,11 +58,39 @@ export function HomePage(props) {
   console.log('businesses: ', businesses);
   const classes = useStyles();
 
-
-
-
   return (
     <div className={classes.root}>
+      <Paper
+        style={
+          window.innerWidth > 767
+            ? { display: 'none', height: 0 }
+            : { background: '#4FBFD8' }
+        }
+      >
+        <Grid style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '20px'}} container spacing={0}>
+          <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <SearchBox
+                coords={data =>
+                  props.dispatch(
+                  yelpSearchData({ lat: data.latitude, lng: data.longitude }),
+                )
+                              }
+              />
+              </Paper>
+            </Grid>
+            <Grid item xs={6}>
+                <UseMyLocation
+              location={data =>
+                props.dispatch(
+                  yelpSearchData({ lat: data.latitude, lng: data.longitude }),
+                )
+              }
+            />
+            </Grid>
+          </Grid>
+      </Paper>
+
       <Grid container spacing={0}>
         {businesses &&
           businesses.businesses &&
@@ -112,14 +141,12 @@ export function HomePage(props) {
                 businesses &&
                 businesses.businesses &&
                 businesses.businesses.length > 0
-                  ? businesses.businesses.map(business => {
-                      return {
-                        lat: business.coordinates.latitude,
-                        lng: business.coordinates.longitude,
-                        url: business.url,
-                        name: business.name,
-                      };
-                    })
+                  ? businesses.businesses.map(business => ({
+                      lat: business.coordinates.latitude,
+                      lng: business.coordinates.longitude,
+                      url: business.url,
+                      name: business.name,
+                    }))
                   : []
               }
             />

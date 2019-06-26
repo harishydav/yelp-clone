@@ -25,8 +25,8 @@ const MapWithASearchBox = compose(
   withProps({
     googleMapURL:
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQOhuvUriLPgDzVblnSSH7BUj-s2EMSw&v=3.exp&libraries=geometry,drawing,places',
-    loadingElement: <div style={{ height: `100%`, width: window.innerWidth }} />,
-    containerElement: <div style={{ height: window.innerHeight, width: window.innerWidth }} />,
+    loadingElement: <div style={{ height: `100%`  }} />,
+    containerElement: <div style={{ height: window.innerHeight }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   lifecycle({

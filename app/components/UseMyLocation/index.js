@@ -22,10 +22,25 @@ const Button = styled.button`
     background: green;
     padding: 5px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
-    font-size: 13px;
+    font-size: 15px;
+    color: white;
   }
   @media only screen and (max-width: 767px) {
-    display: none;
+    // position: relative;
+    display: inline;
+    // left: 165px;
+    // top: 30px;
+    z-index: 5;
+    background: green;
+    padding: 5px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    margin-right: 30px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 `;
 
