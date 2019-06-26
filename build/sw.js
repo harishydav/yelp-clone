@@ -18,7 +18,7 @@ var __wpo = {
       "/npm.react-app-polyfill.a512adaad14151170c55.chunk.js",
       "/npm.react-redux.ac4595acc9003405d038.chunk.js",
       "/12.a4c958a3da4ab7c74307.chunk.js",
-      "/13.15d3efb94fa346deee8d.chunk.js",
+      "./13.15d3efb94fa346deee8d.chunk.js",
       "/14.855ff712e7dcfa2bb16f.chunk.js"
     ],
     "optional": []
@@ -39,7 +39,7 @@ var __wpo = {
     "1ceb0f56c8d9fa33d55f95a7c4aa8bdd45d3700b": "/npm.react-redux.ac4595acc9003405d038.chunk.js",
     "5c516e8b3ec0728922e294ce5ccecd652f997a8c": "/runtime.dd27ebe2f0d4cb4de9e1.js",
     "3dbaf27ed62d2b1e103f54a310b558d55d882fda": "/12.a4c958a3da4ab7c74307.chunk.js",
-    "657e8ec9182321fd49832e468bb89dc6e4330f2b": "/13.15d3efb94fa346deee8d.chunk.js",
+    "657e8ec9182321fd49832e468bb89dc6e4330f2b": "./13.15d3efb94fa346deee8d.chunk.js",
     "00565662a44ddff6465eac40c911ea1b69a2a4ca": "/14.855ff712e7dcfa2bb16f.chunk.js",
     "4717cfebd786de2b3ba0b56c7c39bcdefad8485b": "/"
   },
