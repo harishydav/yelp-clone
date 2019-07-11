@@ -48,6 +48,9 @@ const MapWithASearchBox = compose(
             bounds: refs.map.getBounds(),
             center: refs.map.getCenter(),
           });
+          this.props.boundsChangeUpdate(refs.map.getCenter())
+           ;
+
         },
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
@@ -79,8 +82,8 @@ const MapWithASearchBox = compose(
 
             markers: nextMarkers,
           });
-          console.log('nextCenter: ', nextCenter.lat(), nextCenter.lng());
-          console.log('nextMarkers: ', nextMarkers);
+          
+          
           refs.map.fitBounds(bounds);
         },
       });
@@ -90,12 +93,25 @@ const MapWithASearchBox = compose(
   withGoogleMap,
 )(props => {
 
+  
+  
+
+  let center = props.mapCenter? props.mapCenter : props.center
+
+  const handleClick = (e) => {
+     center = {lat: e.latLng.lat(), lng: e.latLng.lng()  }
+     
+     props.onMapClick(e)
+
+  }
+
   return (
     <GoogleMap
       ref={props.onMapMounted}
       defaultZoom={14}
-      center={props.center}
+      center={ center}
       onBoundsChanged={props.onBoundsChanged}
+      onClick={handleClick}
     >
       <SearchBox
         ref={props.onSearchBoxMounted}
@@ -145,13 +161,20 @@ const MapWithASearchBox = compose(
 });
 
 function MapSearchBox(props) {
-  console.log('props restaurents: ', props.restaurants);
+  
 
   return (
     <div>
       <MapWithASearchBox
         onSearch={data => props.coords({ lat: data.lat(), lng: data.lng() })}
         restaurantMarkers={props.restaurants}
+        onMapClick={(e)=> {
+          props.coords({lat: e.latLng.lat(), lng: e.latLng.lng()  })
+        }}
+        boundsChangeUpdate={(center) => {
+          props.coords({lat: center.lat(), lng: center.lng()  })
+        }}
+        mapCenter={props.mapCenter}
       />
     </div>
   );

@@ -53,7 +53,7 @@ function UseMyLocation(props) {
         if (!props.isGeolocationAvailable || !props.isGeolocationEnabled)
           return location(undefined);
         if (props.coords) {
-          return location(props.coords);
+          return location({latitude: 37.540810, longitude : -122.033401  });
         }
       }}
     >

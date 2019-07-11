@@ -54,8 +54,8 @@ export function HomePage(props) {
   const {
     homePage: { businesses },
   } = props;
-  // console.log('homePage: ', homePage);
-  console.log('businesses: ', businesses);
+  // 
+  
   const classes = useStyles();
 
   return (
@@ -69,22 +69,25 @@ export function HomePage(props) {
       >
         <Grid style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '20px'}} container spacing={0}>
           <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <SearchBox
+            <Paper className={classes.paper}>
+              <SearchBox
                 coords={data =>
                   props.dispatch(
                   yelpSearchData({ lat: data.latitude, lng: data.longitude }),
-                )
+                  )
                               }
               />
               </Paper>
             </Grid>
-            <Grid item xs={6}>
-                <UseMyLocation
-              location={data =>
+          <Grid item xs={6}>
+            <UseMyLocation
+              location={data =>   
+              {
+                
                 props.dispatch(
                   yelpSearchData({ lat: data.latitude, lng: data.longitude }),
-                )
+                    )
+                  }
               }
             />
             </Grid>
@@ -126,11 +129,13 @@ export function HomePage(props) {
           xs={12}
         >
           <div style={{ height: 0 }}>
-            <UseMyLocation
-              location={data =>
+          <UseMyLocation
+              location={data =>   
+                  {
                 props.dispatch(
-                  yelpSearchData({ lat: data.latitude, lng: data.longitude }),
-                )
+                      yelpSearchData({ lat: data.latitude, lng: data.longitude }),
+                    )
+                  }
               }
             />
           </div>
@@ -149,6 +154,7 @@ export function HomePage(props) {
                     }))
                   : []
               }
+              mapCenter= {businesses && businesses.region && businesses.region.center  ? {lat:businesses.region.center.latitude, lng: businesses.region.center.longitude } : null }
             />
           </Paper>
         </Grid>

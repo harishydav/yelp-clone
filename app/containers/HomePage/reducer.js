@@ -18,7 +18,6 @@ const homePageReducer = (state = initialState, action) =>
         return state;
       case `${YELP_SEARCH_DATA}_SUCCESS`: {
         draft.businesses = action.data;
-        console.log('action.data: ', action.data);
         break;
       }
     }

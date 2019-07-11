@@ -11,7 +11,7 @@
     "node": ">=8.15.1"
   },
   "author": "Harish Yadav",
-  "homepage":"https://harishydav.github.io/yelp-clone",
+  "homepage": "https://harishydav.github.io/yelp-clone",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
